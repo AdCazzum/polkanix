@@ -5,6 +5,7 @@
   pkg-config,
   openssl,
   cmake,
+  makeWrapper,
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "cargo-contract";
@@ -28,12 +29,19 @@ rustPlatform.buildRustPackage (finalAttrs: {
   nativeBuildInputs = [
     pkg-config
     cmake
+    makeWrapper
   ];
 
   buildInputs = [ openssl ];
 
   # Skip tests that require additional dependencies not in vendor
   doCheck = false;
+
+  # Wrap cargo-contract to set RUST_SRC_PATH
+  postInstall = ''
+    wrapProgram $out/bin/cargo-contract \
+      --set-default RUST_SRC_PATH "${rustPlatform.rustLibSrc}"
+  '';
 
   meta = with lib; {
     description = "Setup and deployment tool for developing Wasm based smart contracts via ink!";
