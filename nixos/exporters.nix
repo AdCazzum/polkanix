@@ -30,6 +30,12 @@
     boot.loader.efi.canTouchEfiVariables = lib.mkForce false;
   };
 
+  # VirtualBox needs more disk space
+  virtualboxModule = {
+    virtualbox.params.diskSize = 16384; # 16GB instead of default 8GB
+    virtualbox.params.memorySize = 2048;
+  };
+
   # LXC containers need special network configuration
   lxcModule = {lib, ...}: {
     networking.useHostResolvConf = lib.mkForce false;
@@ -77,6 +83,7 @@ in {
       vmware = mkImage "vmware" [];
       virtualbox = mkImage "virtualbox" [
         noBootloaderModule
+        virtualboxModule
       ];
       proxmox = mkImage "proxmox" [
         noBootloaderModule
