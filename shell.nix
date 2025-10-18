@@ -10,6 +10,7 @@
     make-shells.default = {
       packages = with pkgs; [
         opentofu
+        jq
         inputs'.polkadot-nix.packages.polkadot
       ];
     };
