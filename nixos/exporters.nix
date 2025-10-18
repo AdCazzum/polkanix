@@ -23,6 +23,18 @@
   cloudImageModule = {lib, ...}: {
     security.sudo.execWheelOnly = lib.mkForce false;
   };
+
+  # Some formats configure their own bootloader
+  noBootloaderModule = {lib, ...}: {
+    boot.loader.systemd-boot.enable = lib.mkForce false;
+    boot.loader.efi.canTouchEfiVariables = lib.mkForce false;
+  };
+
+  # LXC containers need special network configuration
+  lxcModule = {lib, ...}: {
+    networking.useHostResolvConf = lib.mkForce false;
+    services.resolved.enable = lib.mkForce true;
+  };
 in {
   flake = {
     packages.x86_64-linux = {
@@ -49,9 +61,11 @@ in {
 
       linode = mkImage "linode" [
         cloudImageModule
+        noBootloaderModule
       ];
 
-      oracle = mkImage "oracle" [
+      # Oracle Cloud Infrastructure - using raw-efi format
+      oracle = mkImage "raw-efi" [
         cloudImageModule
       ];
 
@@ -59,16 +73,15 @@ in {
       vmware = mkImage "vmware" [];
       virtualbox = mkImage "virtualbox" [];
       proxmox = mkImage "proxmox" [
-        {
-          boot.loader.systemd-boot.enable = false;
-          boot.loader.grub.enable = true;
-          boot.loader.grub.device = "/dev/sda";
-        }
+        noBootloaderModule
       ];
       hyperv = mkImage "hyperv" [];
 
       # Container
-      lxc = mkImage "lxc" [];
+      lxc = mkImage "lxc" [
+        lxcModule
+        noBootloaderModule
+      ];
     };
   };
 }
