@@ -9,6 +9,8 @@
       inputs.disko.nixosModules.default
       ./_base.nix
       ./_disko.nix
+      ./_grafana.nix
+      ./_nginx.nix
       {
         environment.systemPackages = [
           inputs.polkadot-nix.packages.x86_64-linux.polkadot
