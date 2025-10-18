@@ -34,7 +34,7 @@
   virtualboxModule = {
     virtualbox.params.diskSize = 16384; # 16GB instead of default 8GB
     virtualbox.params.memorySize = 2048; # 2GB RAM for the final VM
-    virtualbox.vmBootMemorySize = 4096; # 4GB RAM for the build process
+    virtualbox.memorySize = 4096; # 4GB RAM for the build VM
   };
 
   # LXC containers need special network configuration
