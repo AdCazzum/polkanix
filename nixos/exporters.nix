@@ -45,18 +45,22 @@ in {
       ami = mkImage "amazon" [
         inputs.srvos.nixosModules.hardware-amazon
         cloudImageModule
+        noBootloaderModule
       ];
 
       gce = mkImage "gce" [
         cloudImageModule
+        noBootloaderModule
       ];
 
       azure = mkImage "azure" [
         cloudImageModule
+        noBootloaderModule
       ];
 
       do = mkImage "do" [
         cloudImageModule
+        noBootloaderModule
       ];
 
       linode = mkImage "linode" [
@@ -71,7 +75,9 @@ in {
 
       # Virtualization
       vmware = mkImage "vmware" [];
-      virtualbox = mkImage "virtualbox" [];
+      virtualbox = mkImage "virtualbox" [
+        noBootloaderModule
+      ];
       proxmox = mkImage "proxmox" [
         noBootloaderModule
       ];
