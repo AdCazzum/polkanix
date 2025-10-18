@@ -60,12 +60,12 @@
       {
         systems = ["x86_64-linux"];
 
-        imports =
-          lib.filesystem.listFilesRecursive ./.
-          |> lib.map builtins.toString
-          |> lib.filter (lib.hasSuffix ".nix")
-          |> lib.filter (f: !lib.hasSuffix "flake.nix" f)
-          |> lib.filter (f: !lib.hasInfix "/_" f);
+        imports = lib.pipe (lib.filesystem.listFilesRecursive ./.) [
+          (lib.map builtins.toString)
+          (lib.filter (lib.hasSuffix ".nix"))
+          (lib.filter (f: !lib.hasSuffix "flake.nix" f))
+          (lib.filter (f: !lib.hasInfix "/_" f))
+        ];
 
         _module.args.rootPath = ./.;
       }

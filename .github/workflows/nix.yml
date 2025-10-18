@@ -14,9 +14,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: DeterminateSystems/nix-installer-action@main
-        with:
-          extra-conf: |
-            experimental-features = nix-command flakes pipe-operators
       - uses: cachix/cachix-action@v15
         with:
           name: polkanix
@@ -38,9 +35,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: DeterminateSystems/nix-installer-action@main
-        with:
-          extra-conf: |
-            experimental-features = nix-command flakes pipe-operators
       - uses: cachix/cachix-action@v15
         with:
           name: polkanix
