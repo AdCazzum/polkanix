@@ -58,7 +58,13 @@ in {
       # Virtualization
       vmware = mkImage "vmware" [];
       virtualbox = mkImage "virtualbox" [];
-      proxmox = mkImage "proxmox" [];
+      proxmox = mkImage "proxmox" [
+        {
+          boot.loader.systemd-boot.enable = false;
+          boot.loader.grub.enable = true;
+          boot.loader.grub.device = "/dev/sda";
+        }
+      ];
       hyperv = mkImage "hyperv" [];
 
       # Container
