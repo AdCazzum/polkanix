@@ -183,11 +183,71 @@ df -h
 ps aux | grep polkadot
 ```
 
+## Building Images
+
+This project can generate NixOS images for various platforms and cloud providers.
+
+### Available Images
+
+#### Cloud Providers
+- **Amazon EC2** (`ami`) - Amazon Machine Image with AWS hardware optimizations
+- **Google Cloud** (`gce`) - Google Compute Engine image
+- **Microsoft Azure** (`azure`) - Azure-compatible VHD
+- **DigitalOcean** (`do`) - DigitalOcean droplet image
+- **Linode** (`linode`) - Linode-compatible image
+- **Oracle Cloud** (`oracle`) - Oracle Cloud Infrastructure image
+
+#### Virtualization Platforms
+- **QEMU/KVM** (`qcow2`) - QCOW2 disk image for KVM/libvirt
+- **Proxmox** (`proxmox`) - Proxmox VE compatible image (GRUB bootloader)
+- **VMware** (`vmware`) - VMware ESXi/Workstation image
+- **VirtualBox** (`virtualbox`) - VirtualBox OVA
+- **Hyper-V** (`hyperv`) - Microsoft Hyper-V image
+
+#### Containers
+- **LXC** (`lxc`) - Linux Container image
+
+### Building an Image
+
+To build any image, use:
+
+```bash
+nix build .#<image-name>
+```
+
+Examples:
+
+```bash
+# Build QCOW2 image for KVM
+nix build .#qcow2
+
+# Build Proxmox image
+nix build .#proxmox
+
+# Build Amazon EC2 AMI
+nix build .#ami
+
+# Build DigitalOcean image
+nix build .#do
+```
+
+The built image will be available in `./result/`.
+
+### Image Configuration
+
+All images include:
+- Polkadot validator (Paseo testnet)
+- SSH access with pre-configured key
+- SELinux enabled
+- srvos security hardening
+
+Cloud images additionally disable `sudo.execWheelOnly` for compatibility with cloud-init.
+
 ## Architecture
 
 - **Cloud Provider**: Hetzner Cloud
 - **OS**: NixOS 24.11
-- **Bootloader**: systemd-boot
+- **Bootloader**: systemd-boot (GRUB for Proxmox)
 - **Filesystem**: ext4
 - **Partitioning**:
   - `/boot`: 512MB (vfat)
