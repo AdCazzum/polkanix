@@ -46,7 +46,7 @@
       };
     };
 
-    # Datasource configuration
+    # Datasource and Dashboard provisioning
     provision = {
       enable = true;
 
@@ -59,6 +59,11 @@
         jsonData = {
           timeInterval = "15s";
         };
+      }];
+
+      dashboards.settings.providers = [{
+        name = "Polkadot";
+        options.path = ./grafana-dashboards;
       }];
     };
   };
