@@ -44,6 +44,6 @@ jobs:
         uses: actions/upload-artifact@v4
         if: success()
         with:
-          name: ${{ matrix.attr }}-${{ matrix.system }}
+          name: ${{ matrix.name }}-${{ matrix.system }}
           path: result/
           retention-days: 30
