@@ -19,6 +19,28 @@
       url = "github:nicknovitski/make-shell";
       inputs.flake-compat.follows = "";
     };
+
+    disko = {
+      url = "github:nix-community/disko";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    srvos = {
+      url = "github:nix-community/srvos";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    polkadot-nix = {
+      url = "github:andresilva/polkadot.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    dotnix = {
+      url = "github:sporyon/dotnix-core";
+      inputs = {
+        flake-parts.follows = "flake-parts";
+        polkadot.follows = "polkadot-nix";
+      };
+    };
   };
 
   outputs =
