@@ -10,7 +10,7 @@
           inputs.disko.nixosModules.default
           inputs.srvos.nixosModules.server
           inputs.srvos.nixosModules.hardware-hetzner-cloud
-          # ./_disko.nix
+          ./_disko.nix
         ];
 
         # SSH access
@@ -23,7 +23,7 @@
         # Polkadot validator configuration
         dotnix.polkadot-validator = {
           enable = true;
-          name = "porcadot-dev-validator";
+          name = "ETHRome";
           chain = "paseo";
           extraArgs = [
             "--rpc-external"
@@ -33,10 +33,12 @@
           ];
         };
 
-        # Make polkadot CLI available
         environment.systemPackages = [
           inputs.polkadot-nix.packages.x86_64-linux.polkadot
         ];
+
+        boot.loader.systemd-boot.enable = true;
+        boot.loader.efi.canTouchEfiVariables = true;
 
         # Basic system configuration
         networking.hostName = "polkadot-validator";

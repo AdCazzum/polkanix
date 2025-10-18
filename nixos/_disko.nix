@@ -1,12 +1,7 @@
 {
   disko.devices = {
-    nodev."/" = {
-      fsType = "tmpfs";
-      mountOptions = [ "size=1024M" "defaults" "mode=755" ];
-    };
-
     disk = {
-      vdb = {
+      main = {
         device = "/dev/sda";
         type = "disk";
         content = {
@@ -14,7 +9,7 @@
           partitions = {
             ESP = {
               type = "EF00";
-              size = "500M";
+              size = "512M";
               content = {
                 type = "filesystem";
                 format = "vfat";
@@ -22,13 +17,11 @@
               };
             };
             root = {
-              start = "512M";
-              end = "-15G";
               size = "100%";
               content = {
                 type = "filesystem";
                 format = "ext4";
-                mountpoint = "/nix";
+                mountpoint = "/";
               };
             };
           };
