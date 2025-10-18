@@ -1,0 +1,5 @@
+use flake
+
+# Hetzner Cloud API Token
+# Get your token from: https://console.hetzner.cloud/
+export TF_VAR_hcloud_token="your-hetzner-cloud-token-here"
