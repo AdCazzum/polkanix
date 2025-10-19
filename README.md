@@ -1,6 +1,4 @@
-# Porcadot - Polkadot Validator on Hetzner Cloud
-
-NixOS configuration for a Polkadot validator on the Paseo testnet, deployed on Hetzner Cloud.
+# PolkaNix
 
 ## Prerequisites
 
